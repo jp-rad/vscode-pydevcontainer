@@ -1,7 +1,7 @@
-## See here for image contents: https://github.com/microsoft/vscode-dev-containers/blob/v0.163.0/containers/python-3/.devcontainer/base.Dockerfile
-## Available image variants: https://github.com/microsoft/vscode-dev-containers/blob/main/containers/python-3/README.md
+# See here for image contents: https://github.com/devcontainers/images/tree/main/src/python
+# Available image variants: https://github.com/devcontainers/templates/blob/main/src/python/devcontainer-template.json
 ARG VARIANT="3"
-FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
+FROM mcr.microsoft.com/devcontainers/python:1-${VARIANT}
 
 # [Optional] Allow the vscode user to pip install globally w/o sudo
 ENV PIP_TARGET=/usr/local/pip-global
@@ -33,10 +33,6 @@ RUN if ! cat /etc/group | grep -e "^pip-global:" > /dev/null 2>&1; then groupadd
 # Create directory and set permission.
 RUN mkdir /home/vscode/dev \ 
     && chown -R vscode:vscode /home/vscode/dev
-RUN mkdir /home/vscode/dev/.vscode \
-    && chown vscode:vscode /home/vscode/dev/.vscode
-RUN mkdir /home/vscode/.vscode-server \
-    && chown vscode:vscode /home/vscode/.vscode-server
 
 # Upgrade pip and install requirements.
 COPY ./dev/requirements_dev.txt /tmp/pip-tmp/
