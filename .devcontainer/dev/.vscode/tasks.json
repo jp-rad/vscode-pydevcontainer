@@ -4,25 +4,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "setup utils",
-            "type": "shell",
-            "command": "sudo",
-            "args": [
-                "pip3",
-                "install",
-                "--upgrade",
-                "build",
-                "pip",
-                "--root-user-action=ignore" // Suppress WARNING
-            ],
-            "problemMatcher": []
-        },
-        {
             "label": "build package",
             "type": "shell",
-            "command": "sudo",
+            "command": "python",
             "args": [
-                "python",
                 "-m",
                 "build"
             ],
@@ -34,13 +19,11 @@
         {
             "label": "install package",
             "type": "shell",
-            "command": "sudo",
+            "command": "pip3",
             "args": [
-                "pip3",
                 "install",
                 "--upgrade",
                 ".",
-                "--root-user-action=ignore" // Suppress WARNING
             ],
             "options": {
                 "cwd": "${workspaceFolder}/code" // Set the working directory to 'code' folder
@@ -48,9 +31,8 @@
             "problemMatcher": []
         },
         {
-            "label": "rebuild",
+            "label": "rebuild package",
             "dependsOn": [
-                "setup utils",
                 "build package",
                 "install package"
             ],

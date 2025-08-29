@@ -3,20 +3,6 @@
 ARG VARIANT="3"
 FROM mcr.microsoft.com/devcontainers/python:1-${VARIANT}
 
-# [Optional] Allow the vscode user to pip install globally w/o sudo
-ARG PYTHONPATH=""
-ENV PIP_TARGET=/usr/local/pip-global
-ENV PYTHONPATH=${PIP_TARGET}${PYTHONPATH:+:$PYTHONPATH}
-ENV PATH=${PIP_TARGET}/bin:${PATH}
-RUN if ! cat /etc/group | grep -e "^pip-global:" > /dev/null 2>&1; then groupadd -r pip-global; fi \
-    && usermod -a -G pip-global vscode \
-    && umask 0002 && mkdir -p ${PIP_TARGET} \
-    && chown :pip-global ${PIP_TARGET} \
-    && ( [ ! -f "/etc/profile.d/00-restore-env.sh" ] || sed -i -e "s/export PATH=/export PATH=\/usr\/local\/pip-global:/" /etc/profile.d/00-restore-env.sh )
-
-# Upgrade pip to the latest version
-RUN pip3 install --upgrade pip
-
 # [Option] Install Node.js
 # ARG INSTALL_NODE="true"
 # ARG NODE_VERSION="lts/*"
@@ -40,5 +26,5 @@ RUN mkdir /home/vscode/dev \
 
 # Install dev requirements
 COPY ./dev/requirements_dev.txt /tmp/pip-tmp/
-RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements_dev.txt \
+RUN pip3 --disable-pip-version-check --no-cache-dir install --upgrade -r /tmp/pip-tmp/requirements_dev.txt \
    && rm -rf /tmp/pip-tmp
