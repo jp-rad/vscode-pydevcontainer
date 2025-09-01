@@ -1,7 +1,7 @@
 # See here for image contents: https://github.com/devcontainers/images/tree/main/src/python
 # Available image variants: https://github.com/devcontainers/templates/blob/main/src/python/devcontainer-template.json
 ARG VARIANT="3"
-FROM mcr.microsoft.com/devcontainers/python:1-${VARIANT}
+FROM mcr.microsoft.com/devcontainers/python:1-${VARIANT}-bookworm
 
 # [Option] Install Node.js
 # ARG INSTALL_NODE="true"

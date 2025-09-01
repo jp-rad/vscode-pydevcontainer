@@ -46,14 +46,14 @@
         {
             "label": "install docs-book dependencies",
             "type": "shell",
-            "command": "sudo",
+            "command": "pip3",
             "args": [
-                "pip3",
+                "--disable-pip-version-check",
+                "--no-cache-dir",
                 "install",
                 "--upgrade",
                 "-r",
-                "requirements.txt",
-                "--root-user-action=ignore" // Suppress WARNING
+                "requirements.txt"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/code/docs-book" // Set the working directory to 'docs-book' folder
